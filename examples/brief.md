@@ -6,7 +6,8 @@ This report uses fabricated sample data. Its repository and commit links are ill
 
 [View exact comparison](https://github.com/example/shop/compare/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb) · **2 commits** · **3 files returned** · **1 associated merged PRs found**
 
-**Base:** v1&#46;4&#46;0 → [aaaaaaaaaaaa](https://github.com/example/shop/commit/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)  
+**Base:** v1&#46;4&#46;0 → [aaaaaaaaaaaa](https://github.com/example/shop/commit/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
+
 **Head:** v1&#46;5&#46;0 → [bbbbbbbbbbbb](https://github.com/example/shop/commit/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb)
 
 Baseline: the most recently published eligible release before this release. This is not necessarily the nearest Git tag.

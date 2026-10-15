@@ -36,7 +36,7 @@ export function renderBrief({ repository, serverUrl = 'https://github.com', base
   const lines = [
     '## Specita Release Brief', '',
     `[View exact comparison](${compare}) · **${totalCommits} commits** · **${files.length} files returned** · **${pullRequests.length} associated merged PRs found**`, '',
-    `**Base:** ${text(baseRef)} → [${baseSha.slice(0, 12)}](${root}/commit/${baseSha})  `,
+    `**Base:** ${text(baseRef)} → [${baseSha.slice(0, 12)}](${root}/commit/${baseSha})`, '',
     `**Head:** ${text(headRef)} → [${headSha.slice(0, 12)}](${root}/commit/${headSha})`, '',
     automaticBase ? 'Baseline: the most recently published eligible release before this release. This is not necessarily the nearest Git tag.' : 'Baseline: explicitly selected by the workflow.', '',
     '### Review before shipping', '',
