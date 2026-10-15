@@ -1,0 +1,34 @@
+name: Specita Release Brief
+description: Evidence-linked release briefs with exact commits, associated PRs, changed areas, and review prompts. No account or AI key.
+author: Specita
+branding:
+  icon: layers
+  color: orange
+inputs:
+  github-token:
+    description: Repository-scoped GitHub token. Read contents and pull requests; write contents only when publishing.
+    default: ${{ github.token }}
+  base-ref:
+    description: Base tag or SHA. If empty, use the most recently published eligible release before the target release.
+  head-ref:
+    description: Head tag or SHA. Defaults to the target release tag. Required when there is no target release.
+  release-id:
+    description: Target release ID for workflow_dispatch. Defaults to the release event ID.
+  publish:
+    description: Set true to update only the managed section of the target release body. Default is summary-only.
+    default: 'false'
+  attribution:
+    description: Include a small Specita link. No tracking request is sent by this Action.
+    default: 'true'
+outputs:
+  brief:
+    description: Generated Markdown brief.
+  base-sha:
+    description: Resolved immutable base commit SHA.
+  head-sha:
+    description: Resolved immutable head commit SHA.
+  updated:
+    description: Whether the release body changed (true or false).
+runs:
+  using: node24
+  main: src/action.js
