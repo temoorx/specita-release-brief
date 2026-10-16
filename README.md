@@ -143,7 +143,7 @@ npm run demo
 
 The demo uses synthetic data and makes no network requests. Local tests use stubbed GitHub responses; they do not create releases or spend runner minutes.
 
-The separate `Validate release publishing` workflow uses only synthetic prereleases in this repository. [The hosted validation](https://github.com/temoorx/specita-release-brief/actions/runs/38932959266) passed with a read-only summary job and a write-enabled publishing job. It verified the automatic baseline, a real merged PR link, preserved maintainer notes, and a second run with no duplicate write. This is controlled test evidence, not a claim of customer adoption or universal compatibility. The optional manual-comparison workflow must target a release whose tag starts with `validation-`; it will refuse ordinary releases.
+The separate `Validate release publishing` workflow uses only synthetic prereleases in this repository. [The hosted validation](https://github.com/temoorx/specita-release-brief/actions/runs/38932959266) passed with a read-only summary job and a write-enabled publishing job. It verified the automatic baseline, a real merged PR link, preserved maintainer notes, and a second run with no duplicate write. This is controlled test evidence, not a claim of customer adoption or universal compatibility. That validation workflow's manual trigger accepts only releases whose tags start with `validation-`; this guard does not restrict ordinary consumer workflows.
 
 ## From source changes to runtime evidence
 
