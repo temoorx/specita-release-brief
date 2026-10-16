@@ -21,4 +21,4 @@ GitHub's release API has no atomic text merge. A manual edit between the final r
 
 Email **support@specita.com**. Do not include tokens, private source, or customer data in a public issue. Describe the affected version, impact, and safe reproduction steps. Do not test vulnerabilities against other people's repositories.
 
-This pre-release has local automated coverage. A live GitHub runner and release-write check are required before the first public version. There is no guaranteed response-time SLA for this free project.
+The initial version has local automated coverage and a [passing GitHub-hosted synthetic release check](https://github.com/temoorx/specita-release-brief/actions/runs/38932959266). The check exercises read-only generation, exact source/PR evidence, release-note preservation, and an idempotent repeat. This does not establish universal compatibility or an independent security audit. There is no guaranteed response-time SLA for this free project.

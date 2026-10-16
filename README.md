@@ -4,7 +4,7 @@
 
 See the exact commits, associated pull requests, changed files, and areas worth reviewing before you ship. Runs inside GitHub Actions. No Specita account. No AI key. No source upload to Specita.
 
-> Release candidate: the source is public. Hosted release-posting validation is in progress before the first `v0.1.0` release. The versioned `uses:` examples below become available after that release.
+> Standalone and open source. Read-only generation and release-note publication have been verified on GitHub-hosted runners using clearly labelled synthetic releases. [View the validation run](https://github.com/temoorx/specita-release-brief/actions/runs/38932959266).
 
 [See a generated brief with synthetic sample data →](examples/brief.md)
 
@@ -21,7 +21,7 @@ GitHub's built-in release notes already list merged PRs and contributors. This A
 
 ## Try it without changing release notes
 
-After the first public version is published, save this workflow as `.github/workflows/release-brief.yml` in your repository:
+Save this workflow as `.github/workflows/release-brief.yml` in your repository:
 
 ```yaml
 name: Release brief
@@ -141,7 +141,9 @@ npm test
 npm run demo
 ```
 
-The demo uses synthetic data and makes no network requests. Tests use stubbed GitHub responses; they do not create releases or spend runner minutes. Local checks do not prove live GitHub permissions or Marketplace availability.
+The demo uses synthetic data and makes no network requests. Local tests use stubbed GitHub responses; they do not create releases or spend runner minutes.
+
+The separate `Validate release publishing` workflow uses only synthetic prereleases in this repository. [The hosted validation](https://github.com/temoorx/specita-release-brief/actions/runs/38932959266) passed with a read-only summary job and a write-enabled publishing job. It verified the automatic baseline, a real merged PR link, preserved maintainer notes, and a second run with no duplicate write. This is controlled test evidence, not a claim of customer adoption or universal compatibility. The optional manual-comparison workflow must target a release whose tag starts with `validation-`; it will refuse ordinary releases.
 
 ## From source changes to runtime evidence
 
