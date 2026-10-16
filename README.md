@@ -4,7 +4,7 @@
 
 See the exact commits, associated pull requests, changed files, and areas worth reviewing before you ship. Runs inside GitHub Actions. No Specita account. No AI key. No source upload to Specita.
 
-> Pre-release: local implementation only. The public repository, version tags, and Marketplace listing are not published yet. The `uses:` examples below become available after publication.
+> Release candidate: the source is public. Hosted release-posting validation is in progress before the first `v0.1.0` release. The versioned `uses:` examples below become available after that release.
 
 [See a generated brief with synthetic sample data →](examples/brief.md)
 

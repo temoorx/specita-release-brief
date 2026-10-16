@@ -1,0 +1,80 @@
+name: Validate release publishing
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release-id:
+        description: Numeric ID of a synthetic validation release in this repository
+        required: true
+        type: string
+permissions:
+  contents: read
+  pull-requests: read
+concurrency:
+  group: specita-release-brief-${{ github.repository }}-${{ github.event.release.id || inputs.release-id }}
+  cancel-in-progress: false
+jobs:
+  summary:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.release.tag_name, 'validation-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+      - name: Guard the synthetic target
+        run: node .github/scripts/verify-release.mjs guard
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_ID: ${{ github.event.release.id || inputs.release-id }}
+      - name: Generate using a read-only token
+        uses: ./
+        with:
+          release-id: ${{ github.event.release.id || inputs.release-id }}
+          publish: 'false'
+  publish:
+    needs: summary
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+      - name: Guard the synthetic target
+        run: node .github/scripts/verify-release.mjs guard
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_ID: ${{ github.event.release.id || inputs.release-id }}
+      - name: Publish the managed section
+        id: first
+        uses: ./
+        with:
+          release-id: ${{ github.event.release.id || inputs.release-id }}
+          publish: 'true'
+      - name: Repeat without a duplicate write
+        id: second
+        uses: ./
+        with:
+          release-id: ${{ github.event.release.id || inputs.release-id }}
+          publish: 'true'
+      - name: Verify preservation, exact evidence and idempotence
+        run: node .github/scripts/verify-release.mjs verify
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_ID: ${{ github.event.release.id || inputs.release-id }}
+          FIRST_UPDATED: ${{ steps.first.outputs.updated }}
+          SECOND_UPDATED: ${{ steps.second.outputs.updated }}
+          FIRST_BRIEF: ${{ steps.first.outputs.brief }}
+          SECOND_BRIEF: ${{ steps.second.outputs.brief }}
+          BASE_SHA: ${{ steps.first.outputs.base-sha }}
+          HEAD_SHA: ${{ steps.first.outputs.head-sha }}
